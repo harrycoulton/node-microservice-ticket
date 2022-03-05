@@ -19,9 +19,9 @@ export const currentUser = (req: Request, res: Response, next: NextFunction) => 
         return next();
     }
 
-    if (JwtManager.verifyJwt(req.session.jwt)) {
-        req.currentUser = JwtManager.verifyJwt(req.session.jwt) as UserPayload;
-        console.log('hello');
+    const payload = JwtManager.verifyJwt(req.session.jwt) as UserPayload;
+    if (payload) {
+        req.currentUser = payload;
     }
 
     next();

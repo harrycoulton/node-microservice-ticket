@@ -5,6 +5,7 @@ import {User} from '../models/mongoose/User';
 import {BadRequestError} from '../models/errors/BadRequestError';
 import {PasswordManager} from '../services/PasswordManager';
 import {JwtManager} from '../services/JwtManager';
+import {routeAddresses} from './routeAddresses';
 
 const router = express.Router();
 
@@ -20,7 +21,7 @@ const signInValidationRules = [
 
 const invalidCredMessage = 'Invalid credentials';
 
-router.post('/api/users/signin', signInValidationRules, validateRequest, async (req: Request, res: Response) => {
+router.post(routeAddresses.POST_SIGN_IN, signInValidationRules, validateRequest, async (req: Request, res: Response) => {
     const { email, password } = req.body;
 
     const existingUser = await User.findOne({ email });

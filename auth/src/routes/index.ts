@@ -6,8 +6,6 @@ import {SignUpRouter} from './signUp';
 import {NotFoundError} from '../models/errors/NotFoundError';
 const router = express.Router();
 
-// TODO: Document routes in code
-
 router.use([
     CurrentUserRouter,
     SignInRouter,

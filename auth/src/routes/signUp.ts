@@ -4,6 +4,7 @@ import {User} from '../models/mongoose/User';
 import {BadRequestError} from '../models/errors/BadRequestError';
 import {validateRequest} from '../middlewares/validateRequest';
 import {JwtManager} from '../services/JwtManager';
+import {routeAddresses} from './routeAddresses';
 
 const router = express.Router();
 
@@ -17,7 +18,7 @@ const signUpValidationRules = [
         .withMessage('Password must be between 4 and 20 characters')
 ];
 
-router.post('/api/users/signup', signUpValidationRules, validateRequest, async (req: Request, res: Response) => {
+router.post(routeAddresses.POST_SIGN_UP, signUpValidationRules, validateRequest, async (req: Request, res: Response) => {
     const { email, password } = req.body;
 
     const existingUser = await User.findOne({ email })
