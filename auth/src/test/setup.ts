@@ -4,11 +4,7 @@ import request from 'supertest';
 import {app} from '../app';
 
 declare global {
-    namespace NodeJS {
-        interface Global {
-            signin(): Promise<string[]>;
-        }
-    }
+    function signIn(): Promise<string[]>
 }
 
 let mongoServer: MongoMemoryServer;
@@ -32,7 +28,7 @@ afterAll(async () => {
     await mongoose.connection.close();
 })
 
-global.signin = async () => {
+global.signIn = async () => {
     const email = 'test@test.com';
     const password = 'password';
 

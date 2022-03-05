@@ -14,9 +14,9 @@ it('clears the cookie after signing out', async () => {
   const response = await request(app)
     .post(routeAddresses.POST_SIGN_OUT)
     .send({})
-    .expect(200);
+    .expect(204);
 
   expect(response.get('Set-Cookie')[0]).toEqual(
-    'express:sess=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; httponly'
+    'session=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; httponly'
   );
 });

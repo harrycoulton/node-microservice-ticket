@@ -3,7 +3,7 @@ import {ErrorMessages, GenericError, GenericErrorItem, GenericErrorResponse} fro
 
 export class RequestValidationError extends GenericError {
 
-    public statusCode = 500;
+    public statusCode = 400;
 
     constructor(public errors: ValidationError[]) {
         super(ErrorMessages.REQUEST_VALIDATION_ERROR);

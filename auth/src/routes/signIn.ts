@@ -24,6 +24,8 @@ const invalidCredMessage = 'Invalid credentials';
 router.post(routeAddresses.POST_SIGN_IN, signInValidationRules, validateRequest, async (req: Request, res: Response) => {
     const { email, password } = req.body;
 
+    console.log([email, password]);
+
     const existingUser = await User.findOne({ email });
 
     if (!existingUser) {
