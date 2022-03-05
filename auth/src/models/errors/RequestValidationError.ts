@@ -1,17 +1,19 @@
 import { ValidationError } from 'express-validator';
-import {GenericError, GenericErrorItem, GenericErrorResponse} from '../errors/GenericError';
+import {ErrorMessages, GenericError, GenericErrorItem, GenericErrorResponse} from '../errors/GenericError';
 
 export class RequestValidationError extends GenericError {
 
+    public statusCode = 500;
+
     constructor(public errors: ValidationError[]) {
-        super();
+        super(ErrorMessages.REQUEST_VALIDATION_ERROR);
 
         Object.setPrototypeOf(this, RequestValidationError.prototype)
     }
 
     generateErrorResponse = () : GenericErrorResponse => {
         return {
-            'status': 500,
+            statusCode: this.statusCode,
             errors: this.errors.map((err: ValidationError): GenericErrorItem => {
                 return {
                     message: err.msg,

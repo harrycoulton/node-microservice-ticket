@@ -1,6 +1,9 @@
 import express, {Request, Response} from 'express';
-import {body, validationResult} from 'express-validator';
-import {RequestValidationError} from '../models/errors/RequestValidationError';
+import {body} from 'express-validator';
+import {User} from '../models/mongoose/User';
+import {BadRequestError} from '../models/errors/BadRequestError';
+import {validateRequest} from '../middlewares/validateRequest';
+import {JwtManager} from '../services/JwtManager';
 
 const router = express.Router();
 
@@ -14,14 +17,23 @@ const signUpValidationRules = [
         .withMessage('Password must be between 4 and 20 characters')
 ];
 
-router.post('/api/users/signup', signUpValidationRules, (req: Request, res: Response) => {
-    const errors = validationResult(req);
+router.post('/api/users/signup', signUpValidationRules, validateRequest, async (req: Request, res: Response) => {
+    const { email, password } = req.body;
 
-    if (!errors.isEmpty()) {
-        throw new RequestValidationError(errors.array())
+    const existingUser = await User.findOne({ email })
+
+    if (existingUser) {
+        throw new BadRequestError('Email already in use');
     }
 
-    res.send({});
+    const user = User.build({email: email, password: password});
+    await user.save();
+
+    req.session = {
+        jwt: JwtManager.generateJwt(user)
+    };
+
+    res.status(201).send(user);
 });
 
 export { router as SignUpRouter };

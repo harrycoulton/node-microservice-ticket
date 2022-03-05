@@ -1,13 +1,13 @@
 import {ErrorMessages, GenericError, GenericErrorResponse} from '../errors/GenericError';
 
-export class DatabaseConnectionError extends GenericError {
+export class NotAuthorisedError extends GenericError {
 
-    public statusCode = 500;
+    public statusCode = 401;
 
     constructor() {
-        super(ErrorMessages.DATABASE_CONNECTION_ERROR);
+        super(ErrorMessages.NOT_AUTHORISED_ERROR);
 
-        Object.setPrototypeOf(this, DatabaseConnectionError.prototype)
+        Object.setPrototypeOf(this, NotAuthorisedError.prototype)
     }
 
     generateErrorResponse = () : GenericErrorResponse => {
@@ -15,7 +15,7 @@ export class DatabaseConnectionError extends GenericError {
             statusCode: this.statusCode,
             errors: [
                 {
-                    message: ErrorMessages.DATABASE_CONNECTION_ERROR,
+                    message: ErrorMessages.NOT_AUTHORISED_ERROR,
                 }
             ]
         }

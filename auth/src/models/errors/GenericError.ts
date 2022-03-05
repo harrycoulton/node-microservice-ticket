@@ -1,5 +1,5 @@
 export interface GenericErrorResponse {
-    status: number;
+    statusCode: number;
     errors: GenericErrorItem[];
 }
 
@@ -8,28 +8,24 @@ export interface GenericErrorItem {
     field?: string;
 }
 
-export class GenericError extends Error {
+export abstract class GenericError extends Error {
 
-    public message: string;
-    status = 500;
+    abstract statusCode: number;
 
-    constructor() {
-        super();
+    constructor(message: string) {
+        super(message);
 
-        this.message = 'An unknown error occured';
+        Object.setPrototypeOf(this, GenericError.prototype);
     }
 
-    setMessage = (message: string): void => {
-        this.message = message;
-    }
+    abstract generateErrorResponse(): GenericErrorResponse;
 
-    generateErrorResponse = (): GenericErrorResponse => {
-        return {
-            status: this.status,
-            errors: [{
-                message: this.message
-            }]
-        }
-    }
+}
 
+export enum ErrorMessages {
+    DATABASE_CONNECTION_ERROR= 'Error connecting to database',
+    REQUEST_VALIDATION_ERROR= 'A request validation error occured',
+    NOT_FOUND_ERROR= 'Not found',
+    BAD_REQUEST_ERROR = 'Bad request',
+    NOT_AUTHORISED_ERROR = 'Not authorised',
 }
