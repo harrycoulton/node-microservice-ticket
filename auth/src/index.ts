@@ -1,28 +1,5 @@
-import express from "express";
-import 'express-async-errors';
-import { json } from "body-parser";
-import { errorHandler } from './middlewares/errorHandler';
-import { RouteIndex } from './routes';
 import mongoose from 'mongoose';
-import cookieSession from 'cookie-session';
-
-const app = express();
-// This is to allow nginx ingress controller
-app.set('trust proxy', true);
-app.use(json());
-
-// signed: Cookie not encrypted as JTW
-// secure: Enforce HTTPS only connections
-app.use(
-    cookieSession({
-      signed: false,
-      // secure: true,
-    })
-)
-
-app.use(RouteIndex);
-
-app.use(errorHandler);
+import {app} from './app';
 
 const start = async () => {
     process.env['JWT_KEY'] = 'production';
