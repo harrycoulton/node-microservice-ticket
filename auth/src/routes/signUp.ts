@@ -1,8 +1,7 @@
 import express, {Request, Response} from 'express';
 import {body} from 'express-validator';
 import {User} from '../models/mongoose/User';
-import {BadRequestError} from '../models/errors/BadRequestError';
-import {validateRequest} from '../middlewares/validateRequest';
+import {validateRequest, BadRequestError} from '@hcoultonorg/common';
 import {JwtManager} from '../services/JwtManager';
 import {routeAddresses} from './routeAddresses';
 
