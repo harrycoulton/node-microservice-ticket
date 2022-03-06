@@ -1,8 +1,8 @@
 import {MongoMemoryServer} from 'mongodb-memory-server';
 import mongoose from 'mongoose';
-import jwt from 'jsonwebtoken';
 import request from 'supertest';
 import {app} from '../app';
+import jwt from 'jsonwebtoken';
 
 declare global {
     function signIn(): string[];
@@ -10,10 +10,8 @@ declare global {
 
 let mongoServer: MongoMemoryServer;
 
-const jwtkey  = 'testjwtkey';
-
 beforeAll(async () => {
-    process.env.JWT_KEY = jwtkey;
+    process.env.JWT_KEY = 'testJwtKey';
     mongoServer = await MongoMemoryServer.create();
     await mongoose.connect(mongoServer.getUri(), {});
 });
@@ -34,13 +32,13 @@ afterAll(async () => {
 global.signIn = () => {
     const sessionJSON = JSON.stringify(
         { jwt: jwt.sign(
-                {
-                    id: new mongoose.Types.ObjectId().toHexString(),
-                    email: 'test@test.com',
-                }, jwtkey) }
+            {
+                id: '11hkj3h2',
+                email: 'test@test.com',
+            }, process.env.JWT_KEY!) }
     );
 
     const base64 = Buffer.from(sessionJSON).toString('base64');
 
-    return [`session=${base64}`];
+    return [`express:sess=${base64}`];
 };
