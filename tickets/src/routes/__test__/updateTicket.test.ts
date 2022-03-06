@@ -1,7 +1,7 @@
 import request from 'supertest';
 import { app } from '../../app';
 import mongoose from 'mongoose';
-import {replaceParam} from '../../helpers/replaceParam';
+import {replaceParam} from '@hcoultonorg/common';
 import {routeAddresses} from '../../routes/routeAddresses';
 
 const putRoute = replaceParam(routeAddresses.PUT_UPDATE_TICKET, 'id', new mongoose.Types.ObjectId().toHexString());

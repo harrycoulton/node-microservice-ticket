@@ -1,7 +1,7 @@
 import request from 'supertest';
 import { app } from '../../app';
 import {routeAddresses} from '../routeAddresses';
-import {replaceParam} from '../../helpers/replaceParam';
+import {replaceParam} from '@hcoultonorg/common';
 import mongoose from 'mongoose';
 
 it('Returns 404 if ticket not found', async () => {

@@ -9,9 +9,10 @@ declare global {
 }
 
 let mongoServer: MongoMemoryServer;
+const jwtkey  = 'testjwtkey';
 
 beforeAll(async () => {
-    process.env.JWT_KEY = 'testJwtKey';
+    process.env.JWT_KEY = jwtkey;
     mongoServer = await MongoMemoryServer.create();
     await mongoose.connect(mongoServer.getUri(), {});
 });
@@ -32,10 +33,10 @@ afterAll(async () => {
 global.signIn = () => {
     const sessionJSON = JSON.stringify(
         { jwt: jwt.sign(
-            {
-                id: '11hkj3h2',
-                email: 'test@test.com',
-            }, process.env.JWT_KEY!) }
+                {
+                    id: new mongoose.Types.ObjectId().toHexString(),
+                    email: 'test@test.com',
+                }, jwtkey) }
     );
 
     const base64 = Buffer.from(sessionJSON).toString('base64');

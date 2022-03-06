@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import {body} from 'express-validator';
 
 interface TicketAttrs {
     title: string,

@@ -1,0 +1,23 @@
+{
+  "name": "microservice-ticket",
+  "version": "1.0.0",
+  "description": "Common modules repo here: https://github.com/harrycoulton/node-microservice-ticket",
+  "main": "index.js",
+  "scripts": {
+    "updateCommon": "concurrently \"cd auth && npm update @hcoultonorg/common\" \"cd blank && npm update @hcoultonorg/common\" \"cd tickets && npm update @hcoultonorg/common\"",
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/harrycoulton/node-microservice-ticket.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/harrycoulton/node-microservice-ticket/issues"
+  },
+  "homepage": "https://github.com/harrycoulton/node-microservice-ticket#readme",
+  "dependencies": {
+    "concurrently": "^7.0.0"
+  }
+}
