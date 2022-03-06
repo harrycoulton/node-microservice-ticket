@@ -8,12 +8,4 @@ export class JwtManager {
             email: user.email,
         }, process.env.JWT_KEY!);
     }
-
-    static verifyJwt(jwt: any) {
-        try {
-            return jwt.verify(jwt, process.env.JWT_KEY!)
-        } catch (e) {
-            return null;
-        }
-    }
 }

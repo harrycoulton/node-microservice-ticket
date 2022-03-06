@@ -3,7 +3,7 @@ import {CurrentUserRouter} from './currentUser';
 import {SignInRouter} from './signIn';
 import {SignOutRouter} from './signOut';
 import {SignUpRouter} from './signUp';
-import {NotFoundError} from '../models/errors/NotFoundError';
+import {NotFoundError} from '@hcoultonorg/common';
 const router = express.Router();
 
 router.use([

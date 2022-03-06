@@ -1,7 +1,7 @@
 import express from "express";
 import 'express-async-errors';
 import { json } from "body-parser";
-import { errorHandler } from './middlewares/errorHandler';
+import { errorHandler } from '@hcoultonorg/common';
 import {RouterIndex} from './routes';
 import cookieSession from 'cookie-session';
 
